@@ -62,17 +62,31 @@ class HomeController extends BaseController {
 	{
 		$titles = $this->articles_titles;
 		$texts = $this->articles_texts;
-		return View::make('article', array('titles' => $titles, 'texts' => $texts, 'id' => $index-1));
+		return View::make('article', array('id' => $index));
 	}
 
 	public function showContact()
 	{
-		return View::make('contact-us');
+		if($_SERVER['REQUEST_METHOD'] == "POST")
+		{
+			if(!Input::has('name'))
+			{
+				return View::make('contact-us', array('error' => "Please, enter your name!"));
+			}
+			if (!Input::has('message'))
+			{
+				return View::make('contact-us', array('error' => "Please, enter message!"));
+			}
+			return Redirect::action('HomeController@showThanks')->withInput();
+		} else {
+			return View::make('contact-us', array('error' => null));
+		}
 	}
 
-	public function formSubmit()
+	public function showThanks()
 	{
-		return "Submitting...";
+		$name = Input::old('name');
+		return View::make('thank-you', array('name' => $name));
 	}
 
 }

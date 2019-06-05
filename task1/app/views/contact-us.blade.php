@@ -1,7 +1,10 @@
 @extends('layout')
 
 @section('content')
-<form method="POST">
+@if($error)
+    <span style="padding: 10px; color: red;">{{$error}}</span>
+@endif
+<form method="POST" action="contact-us">
     <label>Name<br>
     <input name="name" type="text">
     </label><br>

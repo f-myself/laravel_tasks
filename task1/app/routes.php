@@ -21,4 +21,8 @@ Route::get('/about', "HomeController@showAbout");
 
 Route::get('/contact-us', "HomeController@showContact");
 
+Route::post('/contact-us', "HomeController@showContact");
+
 Route::get('/article/{index}', "HomeController@showArticle");
+
+Route::get('/thank-you', array('as'=>'thank-you', 'uses' => "HomeController@showThanks"));
